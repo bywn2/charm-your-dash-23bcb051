@@ -216,15 +216,16 @@ export async function downloadStatementPDF(txns: Txn[], fromDate: Date, toDate: 
       lineWidth: 0.6,
     },
     columnStyles: {
-      0: { cellWidth: 60, halign: "left" },
-      1: { cellWidth: 48, halign: "left" },
-      2: { cellWidth: 150, halign: "left" },
-      3: { cellWidth: 78, halign: "left" },
-      4: { halign: "right", cellWidth: 60 },
-      5: { halign: "right", cellWidth: 60 },
-      6: { halign: "right", cellWidth: 70 },
-      7: { cellWidth: 50, halign: "left" },
+      0: { cellWidth: 55, halign: "left" },   // Date
+      1: { cellWidth: 42, halign: "left" },   // Type
+      2: { cellWidth: "auto", halign: "left" }, // Particulars — flexes
+      3: { cellWidth: 62, halign: "left" },   // Cheque/Ref
+      4: { cellWidth: 55, halign: "right" },  // Debit
+      5: { cellWidth: 55, halign: "right" },  // Credit
+      6: { cellWidth: 65, halign: "right" },  // Balance
+      7: { cellWidth: 48, halign: "left" },   // Channel
     },
+    tableWidth: pageW - margin * 2,
     margin: { left: margin, right: margin, bottom: 36 },
     didDrawPage: () => {
       const pageCount = doc.getNumberOfPages();
