@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Link, useNavigate, useRouterState } from "@tanstack/react-router";
-import { LayoutDashboard, Wallet, ArrowLeftRight, Receipt, Landmark, User, FileText, LogOut, Menu, X, Bell } from "lucide-react";
+import { LayoutDashboard, Wallet, ArrowLeftRight, Receipt, Landmark, User, FileText, LogOut, Menu, X } from "lucide-react";
 import logo from "@/assets/bom-logo.png.asset.json";
 import { getUser, logout, type AuthUser } from "@/lib/bank-store";
 
