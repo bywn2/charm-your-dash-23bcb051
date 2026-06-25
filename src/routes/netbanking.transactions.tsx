@@ -136,8 +136,13 @@ function ImportedView({ data }: { data: ImportedData }) {
     URL.revokeObjectURL(url);
   }
 
-  function downloadPDF() {
-    downloadImportedPDF(data.headers, filtered, data.fileName);
+  async function downloadPDF() {
+    try {
+      await downloadImportedPDF(data.headers, filtered, data.fileName);
+    } catch (err) {
+      console.error("PDF download failed", err);
+      alert(`Could not generate PDF: ${err instanceof Error ? err.message : "Unknown error"}`);
+    }
   }
 
   return (
