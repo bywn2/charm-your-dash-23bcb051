@@ -54,9 +54,9 @@ export function SiteLayout({ children }: { children: ReactNode }) {
       {/* Main header — WHITE band with dark nav, blue LOG-IN */}
       <header className="sticky top-0 z-40 bg-background border-b border-border shadow-sm">
         <div className="mx-auto max-w-[1400px] px-4 py-2.5 flex items-center justify-between gap-4">
-          <Link to="/" className="flex items-center shrink-0">
+          <Link to="/" className="flex items-center shrink-0 min-w-0">
             <div className="border border-primary/30 rounded px-2 py-1 bg-white">
-              <img src={logo.url} alt="Bank of Maharashtra" className="h-12 md:h-14 w-auto" />
+              <img src={logo.url} alt="Bank of Maharashtra" className="h-10 sm:h-12 md:h-14 w-auto" />
             </div>
           </Link>
           <nav className="hidden lg:flex items-center gap-0 flex-1 justify-center">
@@ -64,18 +64,18 @@ export function SiteLayout({ children }: { children: ReactNode }) {
               <Link
                 key={item.label}
                 to={item.to}
-                className="px-3 xl:px-4 py-2 text-[13px] xl:text-sm font-semibold text-foreground hover:text-primary transition"
-                activeProps={{ className: "px-3 xl:px-4 py-2 text-[13px] xl:text-sm font-semibold text-primary border-b-2 border-primary" }}
+                className="px-2 xl:px-4 py-2 text-[13px] xl:text-sm font-semibold text-foreground hover:text-primary transition whitespace-nowrap"
+                activeProps={{ className: "px-2 xl:px-4 py-2 text-[13px] xl:text-sm font-semibold text-primary border-b-2 border-primary whitespace-nowrap" }}
               >
                 {item.label}
               </Link>
             ))}
           </nav>
-          <div className="flex items-center gap-2">
-            <Link to="/login" className="inline-flex items-center gap-2 rounded bg-primary text-primary-foreground px-4 md:px-5 py-2 text-sm font-bold shadow hover:opacity-90 transition">
-              <Lock className="h-4 w-4" /> LOG-IN
+          <div className="flex items-center gap-2 shrink-0">
+            <Link to="/login" className="inline-flex items-center gap-1.5 sm:gap-2 rounded bg-primary text-primary-foreground px-3 sm:px-4 md:px-5 py-2 text-xs sm:text-sm font-bold shadow hover:opacity-90 transition">
+              <Lock className="h-4 w-4" /> <span className="hidden xs:inline sm:inline">LOG-IN</span>
             </Link>
-            <button className="p-2 rounded hover:bg-secondary text-foreground" onClick={() => setOpen(!open)} aria-label="Menu">
+            <button className="lg:hidden p-2 rounded hover:bg-secondary text-foreground" onClick={() => setOpen(!open)} aria-label="Menu" aria-expanded={open}>
               {open ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
             </button>
           </div>
