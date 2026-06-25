@@ -9,13 +9,13 @@ export default defineConfig({
     server: { entry: "server" },
   },
   vite: {
-    // Wrangler requires a plugins array to exist.
+    // Wrangler requires a plugins array to exist
     plugins: [],
-    // Replace vite-tsconfig-paths plugin with native support
+    // Use native tsconfig path resolution instead of vite-tsconfig-paths plugin
     resolve: {
       tsconfigPaths: true,
     },
-    // Optional: adjust chunk size warning limit if needed
+    // Optional: silence large bundle warnings
     build: {
       chunkSizeWarningLimit: 2000,
     },
