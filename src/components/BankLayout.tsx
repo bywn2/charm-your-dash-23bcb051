@@ -43,34 +43,39 @@ export function BankLayout({ children }: { children: React.ReactNode }) {
 
   return (
     <div className="min-h-screen flex flex-col bg-secondary/40">
-      {/* Top bar: hamburger + user id (left) | logo (right) */}
+      {/* Top bar: logo (left) | profile + logout (right) */}
       <header className="sticky top-0 z-40 bg-primary-dark text-primary-foreground shadow-elegant">
         <div className="flex items-center gap-3 px-4 py-2.5">
           <button onClick={() => setOpen(!open)} className="lg:hidden p-2 -ml-2 rounded-md hover:bg-white/10" aria-label="Menu">
             {open ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
           </button>
-          <div className="flex items-center gap-2 min-w-0">
-            <div className="h-9 w-9 rounded-full bg-saffron text-primary-dark grid place-items-center font-bold shrink-0 text-sm">
-              {user.username.charAt(0).toUpperCase()}
+          <Link to="/netbanking/dashboard" className="flex items-center shrink-0" aria-label="Bank of Maharashtra">
+            <div className="bg-white rounded px-2 py-1">
+              <img src={logo.url} alt="Bank of Maharashtra" className="h-9 md:h-10 w-auto" />
             </div>
-            <div className="flex flex-col leading-tight min-w-0">
-              <span className="text-[11px] text-primary-foreground/70 uppercase tracking-wide">User ID</span>
-              <span className="text-sm font-semibold truncate">{user.username}</span>
-            </div>
-          </div>
+          </Link>
+
           <div className="ml-auto flex items-center gap-2">
-            <button className="p-2 rounded-full hover:bg-white/10" aria-label="Notifications"><Bell className="h-5 w-5" /></button>
-            <button onClick={handleLogout} className="hidden sm:inline-flex items-center gap-1 px-3 py-1.5 rounded-md bg-white/10 hover:bg-white/20 text-sm" aria-label="Logout">
-              <LogOut className="h-4 w-4" /> <span className="hidden md:inline">Logout</span>
-            </button>
-            <Link to="/netbanking/dashboard" className="flex items-center shrink-0 ml-1" aria-label="Bank of Maharashtra">
-              <div className="bg-white rounded px-1.5 py-0.5">
-                <img src={logo.url} alt="Bank of Maharashtra" className="h-9 w-auto" />
+            <div className="flex items-center gap-2 px-2.5 py-1.5 rounded-full bg-white/10">
+              <div className="h-7 w-7 rounded-full bg-saffron text-primary-dark grid place-items-center font-bold text-xs shrink-0">
+                {user.username.charAt(0).toUpperCase()}
               </div>
-            </Link>
+              <div className="hidden sm:flex flex-col leading-tight">
+                <span className="text-[10px] text-primary-foreground/70 uppercase tracking-wide">User ID</span>
+                <span className="text-xs font-semibold truncate max-w-[140px]">{user.username}</span>
+              </div>
+            </div>
+            <button
+              onClick={handleLogout}
+              className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-md bg-white/10 hover:bg-white/20 text-sm font-medium"
+              aria-label="Logout"
+            >
+              <LogOut className="h-4 w-4" /> <span className="hidden sm:inline">Logout</span>
+            </button>
           </div>
         </div>
       </header>
+
 
       <div className="flex-1 flex">
         {/* Sidebar desktop */}
