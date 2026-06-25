@@ -55,9 +55,7 @@ export function SiteLayout({ children }: { children: ReactNode }) {
       <header className="sticky top-0 z-40 bg-background border-b border-border shadow-sm">
         <div className="mx-auto max-w-[1400px] px-4 py-2.5 flex items-center justify-between gap-4">
           <Link to="/" className="flex items-center shrink-0 min-w-0">
-            <div className="border border-primary/30 rounded px-2 py-1 bg-white">
-              <img src={logo.url} alt="Bank of Maharashtra" className="h-10 sm:h-12 md:h-14 w-auto" />
-            </div>
+            <img src={logo.url} alt="Bank of Maharashtra" className="h-10 sm:h-12 md:h-14 w-auto" />
           </Link>
           <nav className="hidden lg:flex items-center gap-0 flex-1 justify-center">
             {mainNav.map((item) => (

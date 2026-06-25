@@ -136,8 +136,13 @@ function ImportedView({ data }: { data: ImportedData }) {
     URL.revokeObjectURL(url);
   }
 
-  function downloadPDF() {
-    downloadImportedPDF(data.headers, filtered, data.fileName);
+  async function downloadPDF() {
+    try {
+      await downloadImportedPDF(data.headers, filtered, data.fileName);
+    } catch (err) {
+      console.error("PDF download failed", err);
+      alert(`Could not generate PDF: ${err instanceof Error ? err.message : "Unknown error"}`);
+    }
   }
 
   return (
@@ -290,7 +295,7 @@ function SeededView() {
     URL.revokeObjectURL(url);
   }
 
-  function downloadPDF() {
+  async function downloadPDF() {
     const f = new Date(from);
     const t = new Date(to);
     if (range !== "CUSTOM") {
@@ -302,7 +307,12 @@ function SeededView() {
       else f.setTime(now.getTime()), f.setFullYear(now.getFullYear() - 1);
       t.setTime(now.getTime());
     }
-    downloadStatementPDF(filtered, f, t);
+    try {
+      await downloadStatementPDF(filtered, f, t);
+    } catch (err) {
+      console.error("PDF download failed", err);
+      alert(`Could not generate PDF: ${err instanceof Error ? err.message : "Unknown error"}`);
+    }
   }
 
   return (
