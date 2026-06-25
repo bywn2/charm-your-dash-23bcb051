@@ -257,3 +257,131 @@ export async function downloadStatementPDF(txns: Txn[], fromDate: Date, toDate: 
 
   doc.save(`BoM-Statement-${fromDate.toISOString().slice(0, 10)}_to_${toDate.toISOString().slice(0, 10)}.pdf`);
 }
+
+// ──────────────────────────────────────────────────────────────────────
+// Imported-Excel statement: dynamic columns, same brand chrome.
+// Switches to landscape automatically when there are many columns.
+// ──────────────────────────────────────────────────────────────────────
+export async function downloadImportedPDF(
+  headers: string[],
+  rows: ImportedRow[],
+  fileName: string,
+) {
+  const orientation: "p" | "l" = headers.length > 6 ? "l" : "p";
+  const doc = new jsPDF({ unit: "pt", format: "a4", orientation });
+  const pageW = doc.internal.pageSize.getWidth();
+  const margin = 36;
+
+  // Logo
+  const logoData = await loadLogoDataUrl();
+  const logoW = 200;
+  const logoH = 130; // preserve 400x260 aspect
+  const logoX = (pageW - logoW) / 2;
+  const logoY = 28;
+  if (logoData) {
+    try {
+      doc.addImage(logoData, "PNG", logoX, logoY, logoW, logoH);
+    } catch {
+      doc.setFillColor(...HEADER_BG);
+      doc.rect(logoX, logoY, logoW, logoH, "F");
+      doc.setTextColor(...BLUE);
+      doc.setFont("helvetica", "bold");
+      doc.setFontSize(20);
+      doc.text("Bank of Maharashtra", pageW / 2, logoY + 65, { align: "center" });
+    }
+  }
+
+  // Title band
+  const titleY = logoY + logoH + 18;
+  doc.setFillColor(...HEADER_BG);
+  doc.setDrawColor(...BORDER);
+  doc.setLineWidth(0.6);
+  doc.rect(margin, titleY, pageW - margin * 2, 26, "FD");
+  doc.setTextColor(...TEXT_DARK);
+  doc.setFont("helvetica", "bold");
+  doc.setFontSize(12);
+  doc.text(
+    `Account Statement — ${CUSTOMER.name} · A/C ${CUSTOMER.accountNo}`,
+    pageW / 2,
+    titleY + 17,
+    { align: "center" },
+  );
+
+  // Column widths — fixed for known amount/date columns, auto for the rest
+  const columnStyles: Record<number, { halign?: "left" | "right" | "center"; cellWidth?: number | "auto" }> = {};
+  headers.forEach((h, i) => {
+    if (isAmountHeader(h)) columnStyles[i] = { halign: "right", cellWidth: 70 };
+  });
+
+  const body = rows.map((r) =>
+    headers.map((h) => {
+      const v = r[h];
+      if (v === "" || v == null) return "";
+      if (isAmountHeader(h)) {
+        const n = parseAmount(v);
+        if (n === 0 && String(v).trim() !== "0") return String(v);
+        return fmt(n);
+      }
+      return String(v);
+    }),
+  );
+
+  autoTable(doc, {
+    startY: titleY + 26,
+    head: [headers],
+    body,
+    theme: "grid",
+    styles: {
+      fontSize: orientation === "l" ? 8.5 : 8,
+      cellPadding: { top: 4, right: 5, bottom: 4, left: 5 },
+      textColor: TEXT_DARK,
+      lineColor: BORDER,
+      lineWidth: 0.5,
+      valign: "middle",
+      overflow: "linebreak",
+    },
+    headStyles: {
+      fillColor: HEADER_BG,
+      textColor: TEXT_DARK,
+      fontStyle: "bold",
+      halign: "center",
+      fontSize: orientation === "l" ? 9.5 : 9,
+      lineColor: BORDER,
+      lineWidth: 0.6,
+    },
+    columnStyles,
+    tableWidth: pageW - margin * 2,
+    margin: { left: margin, right: margin, bottom: 40 },
+    didDrawPage: () => {
+      doc.setFontSize(9);
+      doc.setTextColor(...TEXT_DARK);
+      doc.setFont("helvetica", "italic");
+      doc.text(
+        `Source: ${fileName}`,
+        margin,
+        doc.internal.pageSize.getHeight() - 18,
+      );
+    },
+  });
+
+  // Restamp page numbers
+  const total = doc.getNumberOfPages();
+  for (let i = 1; i <= total; i++) {
+    doc.setPage(i);
+    doc.setFont("helvetica", "normal");
+    doc.setFontSize(9);
+    doc.setTextColor(...TEXT_DARK);
+    doc.text(
+      `Page ${i} of ${total}`,
+      pageW - margin,
+      doc.internal.pageSize.getHeight() - 18,
+      { align: "right" },
+    );
+  }
+
+  const safeName = fileName.replace(/\.[^.]+$/, "").replace(/[^a-z0-9_-]+/gi, "_");
+  doc.save(`BoM-Statement-${safeName || "import"}.pdf`);
+}
+
+// silence unused-var warning if BALANCE not referenced in this block
+void BALANCE_PAISE;
