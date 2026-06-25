@@ -8,12 +8,16 @@ export default defineConfig({
   tanstackStart: {
     server: { entry: "server" },
   },
-  // Wrangler requires a plugins array to exist.
-  // Even if @lovable.dev injects plugins internally, we expose an empty array here.
   vite: {
+    // Wrangler requires a plugins array to exist.
     plugins: [],
+    // Replace vite-tsconfig-paths plugin with native support
     resolve: {
-      tsconfigPaths: true, // replaces vite-tsconfig-paths plugin
+      tsconfigPaths: true,
+    },
+    // Optional: adjust chunk size warning limit if needed
+    build: {
+      chunkSizeWarningLimit: 2000,
     },
   },
 });
