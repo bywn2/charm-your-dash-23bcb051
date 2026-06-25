@@ -33,8 +33,8 @@ export async function downloadStatementPDF(txns: Txn[], fromDate: Date, toDate: 
 
   // ── Logo band centered at top ─────────────────────────────
   const logoData = await loadLogoDataUrl();
-  const logoW = 260;
-  const logoH = 78;
+  const logoW = 220;
+  const logoH = 143; // preserves 400x260 aspect ratio
   const logoX = (pageW - logoW) / 2;
   const logoY = 32;
   if (logoData) {
