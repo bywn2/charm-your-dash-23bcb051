@@ -9,38 +9,279 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as PersonalRouteImport } from './routes/personal'
+import { Route as LoginRouteImport } from './routes/login'
+import { Route as LoansRouteImport } from './routes/loans'
+import { Route as ContactRouteImport } from './routes/contact'
+import { Route as BusinessRouteImport } from './routes/business'
+import { Route as AboutRouteImport } from './routes/about'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as NetbankingIndexRouteImport } from './routes/netbanking.index'
+import { Route as NetbankingTransfersRouteImport } from './routes/netbanking.transfers'
+import { Route as NetbankingTransactionsRouteImport } from './routes/netbanking.transactions'
+import { Route as NetbankingStatementsRouteImport } from './routes/netbanking.statements'
+import { Route as NetbankingProfileRouteImport } from './routes/netbanking.profile'
+import { Route as NetbankingLoansRouteImport } from './routes/netbanking.loans'
+import { Route as NetbankingDashboardRouteImport } from './routes/netbanking.dashboard'
+import { Route as NetbankingBillsRouteImport } from './routes/netbanking.bills'
+import { Route as NetbankingAccountsRouteImport } from './routes/netbanking.accounts'
 
+const PersonalRoute = PersonalRouteImport.update({
+  id: '/personal',
+  path: '/personal',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const LoginRoute = LoginRouteImport.update({
+  id: '/login',
+  path: '/login',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const LoansRoute = LoansRouteImport.update({
+  id: '/loans',
+  path: '/loans',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ContactRoute = ContactRouteImport.update({
+  id: '/contact',
+  path: '/contact',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const BusinessRoute = BusinessRouteImport.update({
+  id: '/business',
+  path: '/business',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AboutRoute = AboutRouteImport.update({
+  id: '/about',
+  path: '/about',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const NetbankingIndexRoute = NetbankingIndexRouteImport.update({
+  id: '/netbanking/',
+  path: '/netbanking/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const NetbankingTransfersRoute = NetbankingTransfersRouteImport.update({
+  id: '/netbanking/transfers',
+  path: '/netbanking/transfers',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const NetbankingTransactionsRoute = NetbankingTransactionsRouteImport.update({
+  id: '/netbanking/transactions',
+  path: '/netbanking/transactions',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const NetbankingStatementsRoute = NetbankingStatementsRouteImport.update({
+  id: '/netbanking/statements',
+  path: '/netbanking/statements',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const NetbankingProfileRoute = NetbankingProfileRouteImport.update({
+  id: '/netbanking/profile',
+  path: '/netbanking/profile',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const NetbankingLoansRoute = NetbankingLoansRouteImport.update({
+  id: '/netbanking/loans',
+  path: '/netbanking/loans',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const NetbankingDashboardRoute = NetbankingDashboardRouteImport.update({
+  id: '/netbanking/dashboard',
+  path: '/netbanking/dashboard',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const NetbankingBillsRoute = NetbankingBillsRouteImport.update({
+  id: '/netbanking/bills',
+  path: '/netbanking/bills',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const NetbankingAccountsRoute = NetbankingAccountsRouteImport.update({
+  id: '/netbanking/accounts',
+  path: '/netbanking/accounts',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/about': typeof AboutRoute
+  '/business': typeof BusinessRoute
+  '/contact': typeof ContactRoute
+  '/loans': typeof LoansRoute
+  '/login': typeof LoginRoute
+  '/personal': typeof PersonalRoute
+  '/netbanking/accounts': typeof NetbankingAccountsRoute
+  '/netbanking/bills': typeof NetbankingBillsRoute
+  '/netbanking/dashboard': typeof NetbankingDashboardRoute
+  '/netbanking/loans': typeof NetbankingLoansRoute
+  '/netbanking/profile': typeof NetbankingProfileRoute
+  '/netbanking/statements': typeof NetbankingStatementsRoute
+  '/netbanking/transactions': typeof NetbankingTransactionsRoute
+  '/netbanking/transfers': typeof NetbankingTransfersRoute
+  '/netbanking/': typeof NetbankingIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/about': typeof AboutRoute
+  '/business': typeof BusinessRoute
+  '/contact': typeof ContactRoute
+  '/loans': typeof LoansRoute
+  '/login': typeof LoginRoute
+  '/personal': typeof PersonalRoute
+  '/netbanking/accounts': typeof NetbankingAccountsRoute
+  '/netbanking/bills': typeof NetbankingBillsRoute
+  '/netbanking/dashboard': typeof NetbankingDashboardRoute
+  '/netbanking/loans': typeof NetbankingLoansRoute
+  '/netbanking/profile': typeof NetbankingProfileRoute
+  '/netbanking/statements': typeof NetbankingStatementsRoute
+  '/netbanking/transactions': typeof NetbankingTransactionsRoute
+  '/netbanking/transfers': typeof NetbankingTransfersRoute
+  '/netbanking': typeof NetbankingIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/about': typeof AboutRoute
+  '/business': typeof BusinessRoute
+  '/contact': typeof ContactRoute
+  '/loans': typeof LoansRoute
+  '/login': typeof LoginRoute
+  '/personal': typeof PersonalRoute
+  '/netbanking/accounts': typeof NetbankingAccountsRoute
+  '/netbanking/bills': typeof NetbankingBillsRoute
+  '/netbanking/dashboard': typeof NetbankingDashboardRoute
+  '/netbanking/loans': typeof NetbankingLoansRoute
+  '/netbanking/profile': typeof NetbankingProfileRoute
+  '/netbanking/statements': typeof NetbankingStatementsRoute
+  '/netbanking/transactions': typeof NetbankingTransactionsRoute
+  '/netbanking/transfers': typeof NetbankingTransfersRoute
+  '/netbanking/': typeof NetbankingIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths:
+    | '/'
+    | '/about'
+    | '/business'
+    | '/contact'
+    | '/loans'
+    | '/login'
+    | '/personal'
+    | '/netbanking/accounts'
+    | '/netbanking/bills'
+    | '/netbanking/dashboard'
+    | '/netbanking/loans'
+    | '/netbanking/profile'
+    | '/netbanking/statements'
+    | '/netbanking/transactions'
+    | '/netbanking/transfers'
+    | '/netbanking/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to:
+    | '/'
+    | '/about'
+    | '/business'
+    | '/contact'
+    | '/loans'
+    | '/login'
+    | '/personal'
+    | '/netbanking/accounts'
+    | '/netbanking/bills'
+    | '/netbanking/dashboard'
+    | '/netbanking/loans'
+    | '/netbanking/profile'
+    | '/netbanking/statements'
+    | '/netbanking/transactions'
+    | '/netbanking/transfers'
+    | '/netbanking'
+  id:
+    | '__root__'
+    | '/'
+    | '/about'
+    | '/business'
+    | '/contact'
+    | '/loans'
+    | '/login'
+    | '/personal'
+    | '/netbanking/accounts'
+    | '/netbanking/bills'
+    | '/netbanking/dashboard'
+    | '/netbanking/loans'
+    | '/netbanking/profile'
+    | '/netbanking/statements'
+    | '/netbanking/transactions'
+    | '/netbanking/transfers'
+    | '/netbanking/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AboutRoute: typeof AboutRoute
+  BusinessRoute: typeof BusinessRoute
+  ContactRoute: typeof ContactRoute
+  LoansRoute: typeof LoansRoute
+  LoginRoute: typeof LoginRoute
+  PersonalRoute: typeof PersonalRoute
+  NetbankingAccountsRoute: typeof NetbankingAccountsRoute
+  NetbankingBillsRoute: typeof NetbankingBillsRoute
+  NetbankingDashboardRoute: typeof NetbankingDashboardRoute
+  NetbankingLoansRoute: typeof NetbankingLoansRoute
+  NetbankingProfileRoute: typeof NetbankingProfileRoute
+  NetbankingStatementsRoute: typeof NetbankingStatementsRoute
+  NetbankingTransactionsRoute: typeof NetbankingTransactionsRoute
+  NetbankingTransfersRoute: typeof NetbankingTransfersRoute
+  NetbankingIndexRoute: typeof NetbankingIndexRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/personal': {
+      id: '/personal'
+      path: '/personal'
+      fullPath: '/personal'
+      preLoaderRoute: typeof PersonalRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/login': {
+      id: '/login'
+      path: '/login'
+      fullPath: '/login'
+      preLoaderRoute: typeof LoginRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/loans': {
+      id: '/loans'
+      path: '/loans'
+      fullPath: '/loans'
+      preLoaderRoute: typeof LoansRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/contact': {
+      id: '/contact'
+      path: '/contact'
+      fullPath: '/contact'
+      preLoaderRoute: typeof ContactRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/business': {
+      id: '/business'
+      path: '/business'
+      fullPath: '/business'
+      preLoaderRoute: typeof BusinessRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/about': {
+      id: '/about'
+      path: '/about'
+      fullPath: '/about'
+      preLoaderRoute: typeof AboutRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/': {
       id: '/'
       path: '/'
@@ -48,22 +289,90 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/netbanking/': {
+      id: '/netbanking/'
+      path: '/netbanking'
+      fullPath: '/netbanking/'
+      preLoaderRoute: typeof NetbankingIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/netbanking/transfers': {
+      id: '/netbanking/transfers'
+      path: '/netbanking/transfers'
+      fullPath: '/netbanking/transfers'
+      preLoaderRoute: typeof NetbankingTransfersRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/netbanking/transactions': {
+      id: '/netbanking/transactions'
+      path: '/netbanking/transactions'
+      fullPath: '/netbanking/transactions'
+      preLoaderRoute: typeof NetbankingTransactionsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/netbanking/statements': {
+      id: '/netbanking/statements'
+      path: '/netbanking/statements'
+      fullPath: '/netbanking/statements'
+      preLoaderRoute: typeof NetbankingStatementsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/netbanking/profile': {
+      id: '/netbanking/profile'
+      path: '/netbanking/profile'
+      fullPath: '/netbanking/profile'
+      preLoaderRoute: typeof NetbankingProfileRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/netbanking/loans': {
+      id: '/netbanking/loans'
+      path: '/netbanking/loans'
+      fullPath: '/netbanking/loans'
+      preLoaderRoute: typeof NetbankingLoansRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/netbanking/dashboard': {
+      id: '/netbanking/dashboard'
+      path: '/netbanking/dashboard'
+      fullPath: '/netbanking/dashboard'
+      preLoaderRoute: typeof NetbankingDashboardRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/netbanking/bills': {
+      id: '/netbanking/bills'
+      path: '/netbanking/bills'
+      fullPath: '/netbanking/bills'
+      preLoaderRoute: typeof NetbankingBillsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/netbanking/accounts': {
+      id: '/netbanking/accounts'
+      path: '/netbanking/accounts'
+      fullPath: '/netbanking/accounts'
+      preLoaderRoute: typeof NetbankingAccountsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AboutRoute: AboutRoute,
+  BusinessRoute: BusinessRoute,
+  ContactRoute: ContactRoute,
+  LoansRoute: LoansRoute,
+  LoginRoute: LoginRoute,
+  PersonalRoute: PersonalRoute,
+  NetbankingAccountsRoute: NetbankingAccountsRoute,
+  NetbankingBillsRoute: NetbankingBillsRoute,
+  NetbankingDashboardRoute: NetbankingDashboardRoute,
+  NetbankingLoansRoute: NetbankingLoansRoute,
+  NetbankingProfileRoute: NetbankingProfileRoute,
+  NetbankingStatementsRoute: NetbankingStatementsRoute,
+  NetbankingTransactionsRoute: NetbankingTransactionsRoute,
+  NetbankingTransfersRoute: NetbankingTransfersRoute,
+  NetbankingIndexRoute: NetbankingIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
-
-import type { getRouter } from './router.tsx'
-import type { startInstance } from './start.ts'
-declare module '@tanstack/react-start' {
-  interface Register {
-    ssr: true
-    router: Awaited<ReturnType<typeof getRouter>>
-    config: Awaited<ReturnType<typeof startInstance.getOptions>>
-  }
-}
