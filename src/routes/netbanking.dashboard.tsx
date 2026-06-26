@@ -107,92 +107,138 @@ function Dashboard() {
 
   return (
     <BankLayout>
-      {/* Greeting */}
-      <div className="mb-5 flex flex-wrap items-end justify-between gap-2">
-        <div>
-          <p className="text-xs text-muted-foreground uppercase tracking-wider">{now.toLocaleDateString("en-IN", { weekday: "long", day: "2-digit", month: "long" })}</p>
-          <h1 className="text-2xl md:text-3xl font-bold mt-0.5">
-            Namaste, <span className="text-primary">{user?.name?.split(" ")[0] ?? "Friend"}</span> 👋
-          </h1>
-          <p className="text-sm text-muted-foreground mt-1">Here's a snapshot of your money today.</p>
+      {/* Hero row: Navy balance card (2/3) + Cards widget (1/3) */}
+      <div className="grid grid-cols-1 xl:grid-cols-3 gap-6">
+        {/* Primary account hero */}
+        <div className="xl:col-span-2 relative overflow-hidden bg-[#002147] rounded-3xl p-6 md:p-8 text-white shadow-xl shadow-blue-900/10">
+          <div className="absolute top-0 right-0 w-64 h-64 bg-gradient-to-br from-[#FF9933]/25 to-transparent rounded-full -mr-20 -mt-20 blur-3xl" />
+          <div className="relative z-10">
+            <div className="flex justify-between items-start mb-8 md:mb-10 gap-4">
+              <div className="min-w-0">
+                <p className="text-blue-200 text-xs font-medium uppercase tracking-wider mb-1">Savings Account</p>
+                <p className="text-base md:text-lg font-semibold font-mono truncate">
+                  {showBal
+                    ? user?.accountNo?.replace(/(.{4})/g, "$1 ").trim()
+                    : "•••• •••• •••• 1084"}
+                </p>
+              </div>
+              <span className="px-3 py-1 bg-white/10 rounded-full text-[11px] font-medium border border-white/10 shrink-0">
+                ● Active
+              </span>
+            </div>
+            <div className="space-y-1">
+              <div className="flex items-center gap-2">
+                <p className="text-blue-100/70 text-sm">Available Balance</p>
+                <button
+                  onClick={() => setShowBal(!showBal)}
+                  className="p-1 rounded-full text-blue-100/70 hover:text-white hover:bg-white/10 transition"
+                  aria-label="Toggle balance"
+                >
+                  {showBal ? <EyeOff className="h-3.5 w-3.5" /> : <Eye className="h-3.5 w-3.5" />}
+                </button>
+              </div>
+              <div className="flex items-baseline gap-3 flex-wrap">
+                <span className="text-3xl md:text-5xl font-bold tracking-tight tabular-nums">
+                  {showBal ? formatINR(BALANCE_PAISE) : "₹ •••••••"}
+                </span>
+                <span className="text-emerald-300 text-xs md:text-sm font-medium">↑ 12% this month</span>
+              </div>
+              <p className="text-blue-100/60 text-xs mt-2">IFSC {user?.ifsc} · {user?.branch}</p>
+            </div>
+            <div className="mt-8 md:mt-10 flex gap-3 flex-wrap">
+              <Link
+                to="/netbanking/transfers"
+                className="px-5 md:px-6 py-2.5 bg-[#FF9933] hover:bg-[#e8892d] text-white font-semibold rounded-xl transition-all shadow-lg shadow-orange-950/20 text-sm"
+              >
+                Send Money
+              </Link>
+              <Link
+                to="/netbanking/bills"
+                className="px-5 md:px-6 py-2.5 bg-white/10 hover:bg-white/20 text-white font-semibold rounded-xl transition-all border border-white/20 text-sm"
+              >
+                Pay Bills
+              </Link>
+            </div>
+          </div>
+        </div>
+
+        {/* Cards widget */}
+        <div className="bg-background border border-slate-200 rounded-3xl p-6 shadow-sm flex flex-col">
+          <div className="flex items-center justify-between mb-4">
+            <h3 className="font-bold text-slate-800">Your Card</h3>
+            <Link to="/netbanking/profile" className="text-xs font-semibold text-[#002147] hover:underline">
+              Manage
+            </Link>
+          </div>
+          <div className="flex-1 flex flex-col gap-4">
+            <div className="w-full aspect-[1.58/1] bg-gradient-to-br from-slate-800 via-slate-900 to-black rounded-xl p-4 flex flex-col justify-between shadow-lg relative overflow-hidden">
+              <div className="absolute -right-4 -top-4 w-32 h-32 bg-[#FF9933]/20 rounded-full blur-2xl" />
+              <div className="relative flex items-start justify-between">
+                <div className="text-[10px] text-white/60 tracking-widest uppercase">Platinum Debit</div>
+                <Wifi className="h-4 w-4 text-white/40 rotate-90" />
+              </div>
+              <div className="relative text-white tracking-widest font-mono text-sm">•••• •••• •••• 9921</div>
+              <div className="relative flex justify-between items-end">
+                <div className="text-[9px] text-white/50 uppercase leading-tight">
+                  Valid Thru
+                  <br />
+                  <span className="text-xs text-white font-semibold">09/27</span>
+                </div>
+                <span className="font-display italic font-bold text-[#FF9933] text-sm">मah@Bank</span>
+              </div>
+            </div>
+            <div className="space-y-2">
+              <div className="flex justify-between text-xs">
+                <span className="text-slate-500">Card Status</span>
+                <span className="font-semibold text-emerald-600">● Unlocked</span>
+              </div>
+              <div className="h-1.5 w-full bg-slate-100 rounded-full overflow-hidden">
+                <div className="h-full bg-[#002147]" style={{ width: "65%" }} />
+              </div>
+              <div className="flex justify-between text-[10px] text-slate-400 uppercase tracking-wide">
+                <span>Usage Limit</span>
+                <span className="tabular-nums">₹65,000 / ₹1,00,000</span>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
 
-      {/* Hero row: Debit card + Monthly snapshot */}
-      <div className="grid lg:grid-cols-5 gap-5">
-        {/* Virtual debit card */}
-        <div className="lg:col-span-3 relative overflow-hidden rounded-2xl bom-gradient text-primary-foreground shadow-elegant p-6 md:p-7 min-h-[240px]">
-          <div className="absolute -right-16 -top-16 h-64 w-64 rounded-full bg-white/10 blur-2xl" />
-          <div className="absolute -right-10 -bottom-20 h-48 w-48 rounded-full bg-saffron/30 blur-3xl" />
-          <div className="absolute right-6 top-6 opacity-30">
-            <Wifi className="h-8 w-8 rotate-90" />
-          </div>
-
-          <div className="relative">
-            <p className="text-xs uppercase tracking-[0.2em] text-primary-foreground/70">Available Balance</p>
-            <div className="mt-1 flex items-center gap-3 flex-wrap">
-              <p className="text-3xl md:text-5xl font-bold font-display tabular-nums">
-                {showBal ? formatINR(BALANCE_PAISE) : "₹ • • • • • • •"}
-              </p>
-              <button onClick={() => setShowBal(!showBal)} className="p-2 rounded-full bg-white/15 hover:bg-white/25 transition" aria-label="Toggle balance">
-                {showBal ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
-              </button>
-            </div>
-            <p className="mt-2 text-sm text-primary-foreground/80">Savings Account · {user?.branch}</p>
-
-            <div className="mt-8 flex items-end justify-between gap-4 flex-wrap">
-              <div>
-                <p className="text-[10px] uppercase tracking-widest text-primary-foreground/60">Account Number</p>
-                <p className="font-mono text-base md:text-lg tracking-wider mt-0.5">
-                  {showBal ? user?.accountNo?.replace(/(.{4})/g, "$1 ").trim() : "•••• •••• •••• 7651"}
-                </p>
-                <p className="text-xs text-primary-foreground/70 mt-1">IFSC {user?.ifsc}</p>
+      {/* Snapshot stat strip */}
+      <div className="grid grid-cols-2 lg:grid-cols-3 gap-3 mt-6">
+        <StatCard
+          label="Money In · This month"
+          value={formatINR(Math.round(credits * 100))}
+          delta="+12.4%"
+          positive
+          icon={ArrowDownLeft}
+        />
+        <StatCard
+          label="Money Out · This month"
+          value={formatINR(Math.round(debits * 100))}
+          delta="-4.1%"
+          positive={false}
+          icon={ArrowUpRight}
+        />
+        <div className="col-span-2 lg:col-span-1 bg-background rounded-2xl border border-slate-200 shadow-sm p-5">
+          <div className="flex items-center justify-between">
+            <div className="flex items-center gap-2">
+              <div className="h-8 w-8 rounded-lg bg-[#FF9933]/15 text-[#FF9933] grid place-items-center">
+                <Target className="h-4 w-4" />
               </div>
-              <div className="text-right">
-                <p className="text-[10px] uppercase tracking-widest text-primary-foreground/60">Card Holder</p>
-                <p className="text-sm font-semibold mt-0.5">{user?.name?.toUpperCase()}</p>
-                <p className="font-display italic font-semibold text-saffron text-lg mt-1">मah@Bank</p>
-              </div>
+              <p className="text-sm font-semibold">Savings Goal · ₹50L</p>
             </div>
+            <p className="text-sm font-bold text-[#002147] tabular-nums">{savedPct}%</p>
           </div>
-        </div>
-
-        {/* Snapshot stats */}
-        <div className="lg:col-span-2 grid grid-cols-2 gap-4">
-          <StatCard
-            label="Money In"
-            value={formatINR(Math.round(credits * 100))}
-            delta="+12.4%"
-            positive
-            icon={ArrowDownLeft}
-          />
-          <StatCard
-            label="Money Out"
-            value={formatINR(Math.round(debits * 100))}
-            delta="-4.1%"
-            positive={false}
-            icon={ArrowUpRight}
-          />
-          <div className="col-span-2 bg-background rounded-2xl border border-border shadow-card p-5">
-            <div className="flex items-center justify-between">
-              <div className="flex items-center gap-2">
-                <div className="h-8 w-8 rounded-lg bg-saffron/15 text-saffron grid place-items-center">
-                  <Target className="h-4 w-4" />
-                </div>
-                <p className="text-sm font-semibold">Savings Goal · ₹50L</p>
-              </div>
-              <p className="text-sm font-bold text-primary tabular-nums">{savedPct}%</p>
-            </div>
-            <div className="mt-3 h-2.5 w-full bg-secondary rounded-full overflow-hidden">
-              <div
-                className="h-full bom-gradient rounded-full transition-all"
-                style={{ width: `${savedPct}%` }}
-              />
-            </div>
-            <p className="mt-2 text-xs text-muted-foreground">
-              {formatINR(Math.round((savingsGoal - BALANCE_PAISE / 100) * 100))} to go — on track for Mar 2027.
-            </p>
+          <div className="mt-3 h-2 w-full bg-slate-100 rounded-full overflow-hidden">
+            <div
+              className="h-full bg-gradient-to-r from-[#002147] to-[#FF9933] rounded-full transition-all"
+              style={{ width: `${savedPct}%` }}
+            />
           </div>
+          <p className="mt-2 text-[11px] text-slate-500">
+            {formatINR(Math.round((savingsGoal - BALANCE_PAISE / 100) * 100))} to go.
+          </p>
         </div>
       </div>
 
